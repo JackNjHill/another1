@@ -24,7 +24,7 @@ file = st.file_uploader("Upload a face image", type=["jpg", "png", "jpeg"])
 def import_and_predict(image_data, model):
     size = (48, 48)  # Resize to match training input size
     image = ImageOps.grayscale(image_data)  # Convert to grayscale if needed
-    image = ImageOps.fit(image, size, Image.ANTIALIAS)
+    image = ImageOps.fit(image, size, Image.Resampling.LANCZOS)
     img_array = np.asarray(image).astype("float32") / 255.0  # Normalize
     img_reshape = img_array.reshape(1, 48, 48, 1)  # Add batch and channel dims
     prediction = model.predict(img_reshape)
